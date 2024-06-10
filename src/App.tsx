@@ -71,10 +71,10 @@ function App() {
 
   return (
     <>
-      <section className="flex flex-col items-center min-h-screen space-y-5 m-10">
-        <Card className="">
+      <section className="flex flex-col items-center min-h-screen space-y-5 sm:m-10 overflow-auto">
+        <Card className="border-2 border-black">
           <CardHeader>
-            <CardTitle>User input</CardTitle>
+            <CardTitle>User input<span> - api test</span></CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <Input placeholder="name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -86,22 +86,24 @@ function App() {
           </CardFooter>
         </Card>
 
-        {users.map((user, index) => {
-          return (
-            <Card key={user.email} className="shadow-lg">
-              <CardHeader>
-                <CardTitle>{user.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>Email : {user.email}</p>
-                <p>Age : {user.age}</p>
-              </CardContent>
-              <CardFooter className="flex justify-end">
-                <p>{index + 1}</p>
-              </CardFooter>
-            </Card>
-          );
-        })}
+        <div className="w-full flex justify-center flex-wrap p-4">
+          {users.map((user, index) => {
+            return (
+              <Card key={user.email} className="shadow-2xl bg-stone-800 text-white w-80 m-3">
+                <CardHeader>
+                  <CardTitle>{user.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Email : {user.email}</p>
+                  <p>Age : {user.age}</p>
+                </CardContent>
+                <CardFooter className="flex justify-end">
+                  <p>{index + 1}</p>
+                </CardFooter>
+              </Card>
+            );
+          })}
+        </div>
       </section>
     </>
   )
