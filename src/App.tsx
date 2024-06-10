@@ -20,6 +20,9 @@ const url = "http://pocketbase-r8gcw4c.172.104.164.95.sslip.io/api/collections/v
 
 function App() {
   const [users, setUsers] = useState<Users[]>([])
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
 
   useEffect(() => {
     const getUser = async () => {
@@ -42,6 +45,23 @@ function App() {
     getUser()
   }, [])
 
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://pocketbase-r8gcw4c.172.104.164.95.sslip.io/api/collections/visitors/records", {
+        name: name,
+        email: email,
+        age: age,
+      });
+      console.log(response);
+      // Update the users state with the new user
+      setUsers([...users, { name: name, email: email, age: age }]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <>
       <section className="flex flex-col items-center min-h-screen space-y-5 m-10">
@@ -50,12 +70,12 @@ function App() {
             <CardTitle>User input</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Input placeholder="name" />
-            <Input placeholder="email" />
-            <Input placeholder="age" />
+            <Input placeholder="name" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Input placeholder="age" value={age} onChange={(e) => setAge(e.target.value)} />
           </CardContent>
           <CardFooter>
-            <Button>Submit</Button>
+            <Button onClick={handleSubmit}>Submit</Button>
           </CardFooter>
         </Card>
 
