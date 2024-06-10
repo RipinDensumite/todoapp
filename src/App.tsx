@@ -27,6 +27,7 @@ function App() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
+  const [loading, isLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
@@ -43,6 +44,7 @@ function App() {
         // Update the users state with the new users
         console.log(newUsers) // logs for response array
         setUsers(newUsers);
+        isLoading(false)
       } catch (error) {
         console.log(error);
       }
@@ -92,7 +94,7 @@ function App() {
         </Card>
 
         <div className="w-full flex justify-center flex-wrap p-4">
-          {users.map((user, index) => {
+          {!loading ? users.map((user, index) => {
             return (
               <Card key={user.email} className="shadow-2xl bg-stone-800 text-white w-80 m-3">
                 <CardHeader>
@@ -113,7 +115,7 @@ function App() {
                 </CardFooter>
               </Card>
             );
-          })}
+          }) : <p>Loading...</p>}
         </div>
       </section >
     </>
