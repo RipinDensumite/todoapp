@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { toast } from "sonner"
 
 interface Users {
   name: string,
@@ -56,6 +57,12 @@ function App() {
       console.log(response);
       // Update the users state with the new user
       setUsers([...users, { name: name, email: email, age: age }]);
+      toast("New user appear", {
+        description: "The user has been added successfully!"
+      })
+      setName("");
+      setEmail("");
+      setAge("");
     } catch (error) {
       console.log(error);
     }
