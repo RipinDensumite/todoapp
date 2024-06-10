@@ -10,11 +10,14 @@ import { Input } from "@/components/ui/input"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface Users {
   name: string,
   email: string,
   age: number | string,
+  imageID?: string,
+  id?: string,
 }
 
 const url = "http://pocketbase-r8gcw4c.172.104.164.95.sslip.io/api/collections/visitors/records"
@@ -29,14 +32,16 @@ function App() {
     const getUser = async () => {
       try {
         const response = await axios.get(url);
-        console.log(response);
+        console.log(response); // Log for response object
         // Map over the items array and return a new object for each user
         const newUsers = response.data.items.map((item: Users) => ({
           name: item.name,
           email: item.email,
           age: item.age,
+          imageID: item.imageID ? `http://pocketbase-r8gcw4c.172.104.164.95.sslip.io/api/files/qpx32z7o2oovq36/${item.id}/${item.imageID}?token=` : "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
         }));
         // Update the users state with the new users
+        console.log(newUsers) // logs for response array
         setUsers(newUsers);
       } catch (error) {
         console.log(error);
@@ -91,7 +96,13 @@ function App() {
             return (
               <Card key={user.email} className="shadow-2xl bg-stone-800 text-white w-80 m-3">
                 <CardHeader>
-                  <CardTitle>{user.name}</CardTitle>
+                  <div className="flex flex-row items-center space-x-4">
+                    <Avatar className="size-14">
+                      <AvatarImage src={user.imageID} />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <CardTitle>{user.name}</CardTitle>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <p>Email : {user.email}</p>
@@ -104,7 +115,7 @@ function App() {
             );
           })}
         </div>
-      </section>
+      </section >
     </>
   )
 }
