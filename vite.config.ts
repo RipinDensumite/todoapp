@@ -4,8 +4,19 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  base: "/",
   // base: "/todoapp/",
+  plugins: [react()],
+  preview: {
+    port: 8080,
+    strictPort: true,
+  },
+  server: {
+    port: 8080,
+    strictPort: true,
+    host: true,
+    origin: "http://localhost:8080",
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
