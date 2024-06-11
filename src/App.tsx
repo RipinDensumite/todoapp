@@ -51,7 +51,7 @@ function App() {
     }
 
     getUser()
-  }, [])
+  }, [users])
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
