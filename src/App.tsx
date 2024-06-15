@@ -28,6 +28,7 @@ function App() {
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [loading, isLoading] = useState(true);
+  const [submit, isSubmit] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -44,14 +45,15 @@ function App() {
         // Update the users state with the new users
         console.log(newUsers) // logs for response array
         setUsers(newUsers);
-        isLoading(false)
+        isSubmit(false);
+        isLoading(false);
       } catch (error) {
         console.log(error);
       }
     }
 
     getUser()
-  }, [users])
+  }, [submit])
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -70,6 +72,7 @@ function App() {
       setName("");
       setEmail("");
       setAge("");
+      isSubmit(true);
     } catch (error) {
       console.log(error);
     }
