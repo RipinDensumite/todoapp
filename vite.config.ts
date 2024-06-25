@@ -8,14 +8,14 @@ export default defineConfig({
   // base: "/todoapp/",
   plugins: [react()],
   preview: {
-    port: 8080,
+    port: 8085,
     strictPort: true,
   },
   server: {
-    port: 8080,
+    port: 8085,
     strictPort: true,
     host: true,
-    origin: "http://localhost:8080",
+    origin: "http://localhost:8085",
   },
   resolve: {
     alias: {
